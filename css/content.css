@@ -1,0 +1,57 @@
+.articles {
+    margin: 20px auto;
+    font-size: 1.2rem;
+}
+
+.content {
+    float: left;
+    background: none repeat scroll 0% 0% #FFF;
+    padding: 15px 15px;
+    box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.15);
+    color: #2D2D2D;
+}
+
+.content-title {
+    font-size: 25px;
+    color: #39C;
+    padding: 10px;
+}
+
+.content-description {
+    float: left;
+    background: none repeat scroll 0% 0% #FFF;
+    padding: 10px 14px;
+    color: rgba(0, 0, 0, 0.54);
+    line-height: 25px;
+    font-size: 13px;
+}
+
+.content-description-span {
+    font-weight: bolder;
+    font-size: 13px;
+    color: #39C;
+    margin-right: 10px;
+}
+
+.content-body {
+    line-height: 25px;
+    padding: 0 10px;
+}
+
+.text {
+    font-size: 13px;
+    text-indent: 28px;
+    color: rgba(0, 0, 0, 0.54);
+    margin: 15px 0px;
+}
+
+.comment {
+    width: 680px;
+    margin-top: 20px;
+    float: left;
+    background: none repeat scroll 0% 0% #FFF;
+    padding: 0 15px 10px 15px;
+    box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.15);
+    margin-bottom: 16px;
+    color: #2D2D2D;
+}
