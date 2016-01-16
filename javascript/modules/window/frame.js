@@ -52,9 +52,6 @@ define(['jquery', 'util'], function ($, util) {
         bearingBody.style.marginLeft = 'auto';
         bearingBody.style.marginRight = 'auto';
         bearingBody.style.marginTop = '0px';
-        bearingBody.style.background = 'rgb(255, 255, 255)';
-        bearingBody.style.borderRadius = '3px';
-        bearingBody.style.boxShadow = '0 2px 15px 3px rgba(0, 0, 0, 0.46)';
 
         blackBackground.appendChild(bearingBody);
         return {
@@ -109,6 +106,9 @@ define(['jquery', 'util'], function ($, util) {
 
     /** 基础动画 */
     Frame.prototype.basicAnimation = function (coordinateParameter) {
+        this.frame.bearingBody.style.background = 'rgb(255, 255, 255)';
+        this.frame.bearingBody.style.borderRadius = '3px';
+        this.frame.bearingBody.style.boxShadow = '0 2px 15px 3px rgba(0, 0, 0, 0.46)';
         this.frame.bearingBody.style.width = coordinateParameter.bearingWidth + 'px';
         this.frame.bearingBody.style.height = coordinateParameter.bearingHeight + 'px';
         this.frame.bearingBody.style.marginTop = coordinateParameter.offsetY + 'px';
@@ -120,11 +120,14 @@ define(['jquery', 'util'], function ($, util) {
         var rectangleRightCritical = coordinateParameter.bearingWidth + coordinateParameter.offsetX;
         var rectangleBottomCritical = coordinateParameter.bearingHeight + coordinateParameter.offsetY;
 
-        console.log(coordinateParameter.offsetX + '<' + this.event.clientX + "<" + rectangleRightCritical);
-        console.log(coordinateParameter.offsetY + '<' + this.event.clientY + '<' + rectangleBottomCritical);
+        console.log("X:" + coordinateParameter.offsetX + '<' + this.event.clientX + "<" + rectangleRightCritical + '@' + ((this.event.clientX > coordinateParameter.offsetX) ^ (this.event.clientX < rectangleRightCritical)));
+        console.log("Y:" + coordinateParameter.offsetY + '<' + this.event.clientY + '<' + rectangleBottomCritical + '@' + ((this.event.clientY > coordinateParameter.offsetY) ^ (this.event.clientY < rectangleBottomCritical)));
 
-        if (((this.event.clientX > coordinateParameter.offsetX) ^ (this.event.clientX < rectangleRightCritical))
-            ^ ((this.event.clientY > coordinateParameter.offsetY) ^ (this.event.clientY < rectangleBottomCritical))) {
+        var coordinateDeterminationX = ((this.event.clientX - 20 > coordinateParameter.offsetX) ^ (this.event.clientX - 20 < rectangleRightCritical));
+        var coordinateDeterminationY = ((this.event.clientY - 20 > coordinateParameter.offsetY) ^ (this.event.clientY - 20 < rectangleBottomCritical));
+
+        if (0 != coordinateDeterminationX
+            || 0 != coordinateDeterminationY) {
             this.basicAnimation(coordinateParameter);
             return true;
         }
@@ -154,21 +157,51 @@ define(['jquery', 'util'], function ($, util) {
         var lengthY = (topLength > bottomLength) ? topLength : bottomLength;
         var lengthX = (leftLength > rightLength) ? leftLength : rightLength;
 
+        // 圆形半径长度
+        var bevelAngle = (Math.sqrt(Math.pow(lengthX, 2) + Math.pow(lengthY, 2)) + 10);
+        var abstractContentRectangleRelativeCoordinatePositionY = (bevelAngle - topLength);
+        var abstractContentRectangleRelativeCoordinatePositionX = (bevelAngle - leftLength);
+
         var abstractRectangle = document.createElement('div');
+        abstractRectangle.style.width = '0px';
+        abstractRectangle.style.height = '0px';
         abstractRectangle.style.position = 'absolute';
         abstractRectangle.style.top = this.event.clientY + 'px';
         abstractRectangle.style.left = this.event.clientX + 'px';
-        abstractRectangle.style.width = (lengthX * 2) + 'px';
-        abstractRectangle.style.height = (lengthY * 2) + 'px';
-        abstractRectangle.style.marginLeft = -((lengthX / 2) + (lengthX * 2)) + 'px';
-        abstractRectangle.style.marginTop = -(lengthY / 2) + 'px';
+        abstractRectangle.style.borderRadius = '100%';
+        abstractRectangle.style.overflow = 'hidden';
 
-        abstractRectangle.style.background = 'red';
+        var abstractContentRectangle = document.createElement('div');
+        abstractContentRectangle.style.width = coordinateParameter.bearingWidth + 'px';
+        abstractContentRectangle.style.height = coordinateParameter.bearingHeight + 'px';
+        // abstractContentRectangle.style.background = 'rgb(255, 255, 255)';
+        abstractContentRectangle.style.background = 'url(img/1.jpg)';
+        abstractContentRectangle.style.borderRadius = '3px';
+        abstractContentRectangle.style.boxShadow = '0 2px 15px 3px rgba(0, 0, 0, 0.46)';
+
+        abstractRectangle.appendChild(abstractContentRectangle);
         this.frame.bearingBody.appendChild(abstractRectangle);
 
         this.frame.bearingBody.style.width = coordinateParameter.bearingWidth + 'px';
         this.frame.bearingBody.style.height = coordinateParameter.bearingHeight + 'px';
         this.frame.bearingBody.style.marginTop = coordinateParameter.offsetY + 'px';
+        this.frame.bearingBody.style.marginLeft = coordinateParameter.offsetX + 'px';
+
+        // 计算虚拟内容矩形的默认位置
+        abstractContentRectangle.style.marginLeft = -(leftLength) + 'px';
+        abstractContentRectangle.style.marginTop = -(topLength) + 'px';
+
+        $(abstractRectangle).animate({
+            width: (bevelAngle * 2),
+            height: (bevelAngle * 2),
+            marginLeft: -(bevelAngle) + 'px',
+            marginTop: -(bevelAngle) + 'px'
+        }, 400);
+
+        $(abstractContentRectangle).animate({
+            marginTop: abstractContentRectangleRelativeCoordinatePositionY,
+            marginLeft: abstractContentRectangleRelativeCoordinatePositionX
+        }, 400);
 
         $(this.frame.blackBackground).css({'display': 'block', 'opacity': 1});
     };
