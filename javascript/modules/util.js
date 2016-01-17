@@ -3,6 +3,7 @@
  */
 
 define([], function () {
+
     var util = {};
 
     /**
@@ -31,7 +32,6 @@ define([], function () {
     util.inheritPrototype = function(subType, superType) {
         var prototype = (function (o) {
             function F() {}
-
             F.prototype = o;
             return new F();
         })(superType.prototype);
