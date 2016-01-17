@@ -98,10 +98,12 @@ define([
             _this.close();
         };
 
-        view.css({opacity: 0, marginTop: 3});
-        setTimeout(function () {
-            view.animate({opacity: 1, marginTop: 0}, _this.time * (4/3));
-        }, this.time * (1/30));
+        if (!util.isMobileBrowser()) {
+            view.css({opacity: 0, marginTop: 3});
+            setTimeout(function () {
+                view.animate({opacity: 1, marginTop: 0}, _this.time * (4 / 3));
+            }, this.time * (1 / 30));
+        }
     };
 
     ErrorView.prototype.success = function (success) {

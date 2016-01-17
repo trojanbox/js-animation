@@ -1,7 +1,3 @@
-/**
- * Created by xtrojanbox on 15-9-30.
- */
-
 define(['jquery'], function ($) {
 
     var Manager = function () {
