@@ -16,6 +16,7 @@ require.config({
     paths: {
         // 核心库
         'window.notice': '/javascript/modules/window/notice',
+        'component.window': '/build/abc',
         'system.di': '/javascript/modules/system/di',
         'animation.enlarge': '/javascript/modules/animation/enlarge',
         'component.window.window.manager': '/javascript/modules/component/window/window.manager',

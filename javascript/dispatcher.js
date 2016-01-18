@@ -2,6 +2,11 @@
  * Created by wwwju on 2016/1/11.
  */
 
+require(['jquery', 'component.window'], function ($, cw) {
+    console.log(cw);
+});
+
+/*
 require(['jquery', 'view.general'], function ($, SuccessView) {
     $('.article').bind('click', function (event) {
         var successView = new SuccessView();
@@ -9,3 +14,4 @@ require(['jquery', 'view.general'], function ($, SuccessView) {
         successView.open();
     });
 });
+*/
