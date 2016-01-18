@@ -2,7 +2,7 @@
  * Created by wwwju on 2016/1/11.
  */
 
-require(['jquery', 'component.window'], function ($, cw) {
+require(['jquery', 'dialog'], function ($, cw) {
     console.log(cw);
 });
 
