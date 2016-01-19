@@ -3,33 +3,38 @@
 module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        uglify: {
+        'requirejs': {
+            dialog: {
+                options: {
+                    optimize: "none",
+                    baseUrl: "./src",
+                    //appDir: './bulid',
+                    //dir: './build',
+                    generateSourceMaps: true,
+                    preserveLicenseComments: false,
+                    paths: {
+                        'jquery': '../node_modules/jquery/dist/jquery'
+                    },
+                    name: 'build/dialog',
+                    exclude: ['jquery'],
+                    out: "build/dialog.js"
+                }
+            }
+        },
+        'uglify': {
             options: {
-                mangle: true,       // 混淆变量名
+                mangle: true,
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
             files: {
-                src: ['src/util.js', 'src/component/*.js', 'src/window/*.js'],
-                dest: 'javascript/dist/window.component.min.js'
-            }
-        },
-        'requirejs': {
-            compile: {
-                options: {
-                    optimize: "none",
-                    baseUrl: "./",
-                    // mainConfigFile: "path/to/config.js",
-                    name: "src/window.js", // assumes a production build using almond
-                    generateSourceMaps: true,
-                    preserveLicenseComments: false,
-                    exclude: ['jquery'],
-                    out: "./build/window.js"
-                }
+                src: ['build/dialog.js'],
+                dest: 'javascript/dist/dialog.js'
             }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
-    grunt.registerTask('default', ['requirejs']);
+
+    grunt.registerTask('default', ['uglify']);
 };

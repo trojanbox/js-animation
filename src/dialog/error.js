@@ -2,9 +2,10 @@ define([
     'exports',
     'jquery',
     '../util',
+    '../core',
     '../component/window/window.manager',
     '../component/window/animate.ripple'
-], function (exports, $, util, WindowManger, AnimateRipple) {
+], function (exports, $, util, di, WindowManger, AnimateRipple) {
 
     var ErrorView = function () {
         WindowManger.apply(this, arguments);
