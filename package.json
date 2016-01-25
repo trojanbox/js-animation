@@ -1,0 +1,31 @@
+{
+  "name": "js-animation",
+  "version": "1.0.0",
+  "description": "js animation library.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TrojanBox/js-animation.git"
+  },
+  "keywords": [
+    "animation"
+  ],
+  "author": "trojanbox",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TrojanBox/js-animation/issues"
+  },
+  "homepage": "https://github.com/TrojanBox/js-animation#readme",
+  "devDependencies": {
+    "babel-loader": "^6.2.1",
+    "css-loader": "^0.23.1",
+    "file-loader": "^0.8.5",
+    "jquery": "^1.12.0",
+    "sass-loader": "^3.1.2",
+    "style-loader": "^0.13.0",
+    "url-loader": "^0.5.7"
+  }
+}
